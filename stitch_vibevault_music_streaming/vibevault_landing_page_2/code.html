@@ -1,0 +1,624 @@
++6
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>VibeVault - Sonic Experiences</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Poppins:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-bright": "#31394d",
+            "surface-container": "#171f33",
+            "on-error": "#690005",
+            "surface-tint": "#d0bcff",
+            "on-tertiary": "#640039",
+            "tertiary-container": "#f751a1",
+            "on-secondary-fixed": "#001f26",
+            "on-tertiary-container": "#570032",
+            "outline-variant": "#494454",
+            "on-secondary-container": "#00424e",
+            "inverse-primary": "#6d3bd7",
+            "outline": "#958ea0",
+            "surface-container-lowest": "#060e20",
+            "primary-fixed-dim": "#d0bcff",
+            "primary-fixed": "#e9ddff",
+            "secondary": "#4cd7f6",
+            "on-error-container": "#ffdad6",
+            "surface-variant": "#2d3449",
+            "inverse-on-surface": "#283044",
+            "primary": "#d0bcff",
+            "on-primary-container": "#340080",
+            "background": "#0b1326",
+            "primary-container": "#a078ff",
+            "secondary-container": "#03b5d3",
+            "on-secondary": "#003640",
+            "error": "#ffb4ab",
+            "on-background": "#dae2fd",
+            "tertiary": "#ffb0cd",
+            "error-container": "#93000a",
+            "inverse-surface": "#dae2fd",
+            "tertiary-fixed-dim": "#ffb0cd",
+            "surface-container-high": "#222a3d",
+            "tertiary-fixed": "#ffd9e4",
+            "surface-container-low": "#131b2e",
+            "secondary-fixed-dim": "#4cd7f6",
+            "surface-container-highest": "#2d3449",
+            "surface-dim": "#0b1326",
+            "on-secondary-fixed-variant": "#004e5c",
+            "on-surface-variant": "#cbc3d7",
+            "on-primary-fixed-variant": "#5516be",
+            "on-primary": "#3c0091",
+            "surface": "#0b1326",
+            "on-primary-fixed": "#23005c",
+            "secondary-fixed": "#acedff",
+            "on-tertiary-fixed-variant": "#8c0053",
+            "on-tertiary-fixed": "#3e0022",
+            "on-surface": "#dae2fd"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-desktop": "48px",
+            "stack-sm": "8px",
+            "stack-md": "16px",
+            "gutter": "24px",
+            "stack-lg": "32px",
+            "margin-mobile": "20px",
+            "container-max": "1440px"
+          },
+          "fontFamily": {
+            "headline-md": ["Plus Jakarta Sans"],
+            "display-lg": ["Plus Jakarta Sans"],
+            "label-caps": ["Plus Jakarta Sans"],
+            "title-lg": ["Plus Jakarta Sans"],
+            "body-main": ["Plus Jakarta Sans"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "display-lg-mobile": ["Plus Jakarta Sans"],
+            "poppins": ["Poppins", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "display-lg": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+            "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "body-main": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+          }
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .glass-dark {
+      background: rgba(11, 19, 38, 0.7);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .glow-purple {
+      box-shadow: 0 0 20px rgba(208, 188, 255, 0.4);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translateY(-100px) rotate(20deg);
+        opacity: 0;
+      }
+    }
+
+    .music-note {
+      position: absolute;
+      animation: float 4s infinite linear;
+      pointer-events: none;
+    }
+
+    .visualizer-bar {
+      width: 3px;
+      background: #4cd7f6;
+      margin: 0 1px;
+      animation: bounce 1s infinite ease-in-out;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        height: 4px;
+      }
+
+      50% {
+        height: 16px;
+      }
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background overflow-x-hidden selection:bg-secondary selection:text-on-secondary">
+  <!-- Global Background Shader -->
+  <div class="fixed inset-0 z-0">
+    <!-- STITCH_SHADER_START:ANIMATION_2 class="absolute inset-0 w-full h-full opacity-60" -->
+    <div class="absolute inset-0 w-full h-full opacity-60" style="display:block;">
+      <canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+      <script>
+          (function () {
+            const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+            // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+            // This fires on initial layout and whenever the element is resized.
+            function syncSize() {
+              const w = canvas.clientWidth || 1280;
+              const h = canvas.clientHeight || 720;
+              if (canvas.width !== w || canvas.height !== h) {
+                canvas.width = w;
+                canvas.height = h;
+              }
+            }
+            if (typeof ResizeObserver !== 'undefined') {
+              new ResizeObserver(syncSize).observe(canvas);
+            }
+            syncSize();
+
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) return;
+            const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+            const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Create flowing organic waves
+    float wave1 = sin(uv.x * 3.0 + u_time * 0.5) * 0.5 + 0.5;
+    float wave2 = sin(uv.y * 2.0 - u_time * 0.8) * 0.5 + 0.5;
+    float noise = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+    
+    // Colors from VibeVault palette (Purple, Cyan, Pink)
+    vec3 purple = vec3(0.545, 0.361, 0.965); // #8B5CF6
+    vec3 cyan = vec3(0.024, 0.714, 0.831);   // #06B6D4
+    vec3 pink = vec3(0.925, 0.282, 0.6);    // #EC4899
+    vec3 bg = vec3(0.059, 0.09, 0.165);     // #0F172A
+    
+    // Blend colors based on waves
+    vec3 col = mix(bg, purple, wave1 * 0.3);
+    col = mix(col, cyan, wave2 * 0.3);
+    col = mix(col, pink, (wave1 * wave2) * 0.2);
+    
+    // Add glowing "audio wave" horizontal bands
+    float audioWave = abs(sin(uv.y * 10.0 + u_time + sin(uv.x * 5.0))) * 0.1;
+    col += cyan * (0.01 / audioWave);
+    
+    gl_FragColor = vec4(col, 1.0);
+}`;
+            function cs(type, src) {
+              const s = gl.createShader(type);
+              gl.shaderSource(s, src);
+              gl.compileShader(s);
+              return s;
+            }
+            const prog = gl.createProgram();
+            gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+            gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+            gl.linkProgram(prog);
+            gl.useProgram(prog);
+            const buf = gl.createBuffer();
+            gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+            const pos = gl.getAttribLocation(prog, 'a_position');
+            gl.enableVertexAttribArray(pos);
+            gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+            const uTime = gl.getUniformLocation(prog, 'u_time');
+            const uRes = gl.getUniformLocation(prog, 'u_resolution');
+            const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+            // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+            // Shaders that need normalized coords should use: u_mouse / u_resolution.
+            let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+            window.addEventListener('mousemove', (event) => {
+              const rect = canvas.getBoundingClientRect();
+              if (rect.width && rect.height) {
+                const nx = (event.clientX - rect.left) / rect.width;
+                const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+                mouse.x = nx * canvas.width;
+                mouse.y = ny * canvas.height;
+              }
+            });
+
+            function render(t) {
+              if (typeof ResizeObserver === 'undefined') syncSize();
+              gl.viewport(0, 0, canvas.width, canvas.height);
+              if (uTime) gl.uniform1f(uTime, t * 0.001);
+              if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+              if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+              gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+              requestAnimationFrame(render);
+            }
+            render(0);
+          })();
+      </script>
+    </div>
+    <!-- STITCH_SHADER_END:ANIMATION_2 -->
+  </div>
+  <!-- Floating Background Elements -->
+  <div class="fixed inset-0 z-1 pointer-events-none" id="note-container"></div>
+  <!-- Top App Bar -->
+  <header
+    class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface/80 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-primary/10 flex justify-between items-center px-margin-mobile py-stack-md">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-3xl"
+        style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+      <h1
+        class="font-display-lg-mobile text-display-lg-mobile tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+        VibeVault</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <button
+        class="material-symbols-outlined text-on-surface-variant hover:text-secondary transition-colors duration-300">search</button>
+      <div class="w-8 h-8 rounded-full border border-primary/30 bg-surface-container overflow-hidden">
+        <img class="w-full h-full object-cover"
+          data-alt="A high-fidelity 3D avatar of a stylish music listener with neon headphones, set against a dark glassmorphic background with violet and cyan glowing accents to match the VibeVault brand identity."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2zu3VytpsYxGf7PY_NF3KgIEtZAHRtZIzR2oxbW9WbBbOtKnkR3fLhpvVOrHY0I_U2xJZgNIMxIfhBiO6ScEoV2f-rT5gW4pmreBuZ4goek6zmbmg8dx4MQ4LBW6F9bQRu6j8FVqVB3ZK62N6axSQMVQ_tpYkGqVCiJzKwoh6-2kD1bRULba5A3S6JZnqt4zxlleyy30Q84-BNYCpZDWPhqBxS6RilWDOiKw-jADxyh-IzorQ03hzJM6tS269Zo-0O3NnmTQa3-0" />
+      </div>
+    </div>
+  </header>
+  <main class="relative z-10 pt-24 pb-32 px-margin-mobile">
+    <!-- Hero Section -->
+    <section class="mt-8 space-y-6 text-center animate-fade-in">
+      <div class="space-y-4">
+        <h2 class="font-display-lg-mobile text-display-lg-mobile leading-tight">
+          Discover Music That <br />
+          <span class="text-primary italic">Matches Your Mood</span>
+        </h2>
+        <p class="text-on-surface-variant font-body-main px-4">
+          Immerse yourself in a sonic journey tailored to your emotions. High-fidelity audio, curated by vibe.
+        </p>
+      </div>
+      <div class="flex flex-col gap-3 px-4">
+        <button
+          class="bg-gradient-to-r from-primary to-secondary py-4 rounded-[20px] font-title-lg text-on-primary-container glow-purple active:scale-95 transition-all">
+          Explore Music
+        </button>
+        <button
+          class="border border-secondary/50 glass py-4 rounded-[20px] font-title-lg text-secondary active:scale-95 transition-all">
+          Trending Now
+        </button>
+      </div>
+    </section>
+    <!-- Categories -->
+    <section class="mt-stack-lg">
+      <div class="flex justify-between items-end mb-4">
+        <h3 class="font-headline-md text-headline-md">Categories</h3>
+        <span class="text-secondary font-label-caps text-label-caps">SEE ALL</span>
+      </div>
+      <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+        <div
+          class="flex-none w-24 h-24 glass rounded-[20px] flex flex-col items-center justify-center gap-1 group active:scale-95 transition-transform">
+          <span class="material-symbols-outlined text-secondary text-3xl">celebration</span>
+          <span class="font-label-caps text-label-caps text-on-surface-variant">Pop</span>
+        </div>
+        <div
+          class="flex-none w-24 h-24 glass rounded-[20px] flex flex-col items-center justify-center gap-1 border-primary/40">
+          <span class="material-symbols-outlined text-primary text-3xl">electric_bolt</span>
+          <span class="font-label-caps text-label-caps text-on-surface-variant">Rock</span>
+        </div>
+        <div class="flex-none w-24 h-24 glass rounded-[20px] flex flex-col items-center justify-center gap-1">
+          <span class="material-symbols-outlined text-tertiary text-3xl">headphones</span>
+          <span class="font-label-caps text-label-caps text-on-surface-variant">Hip-Hop</span>
+        </div>
+        <div class="flex-none w-24 h-24 glass rounded-[20px] flex flex-col items-center justify-center gap-1">
+          <span class="material-symbols-outlined text-on-surface text-3xl">piano</span>
+          <span class="font-label-caps text-label-caps text-on-surface-variant">Jazz</span>
+        </div>
+      </div>
+    </section>
+    <!-- Trending Songs -->
+    <section class="mt-stack-lg">
+      <h3 class="font-headline-md text-headline-md mb-4">Trending Today</h3>
+      <div class="space-y-4">
+        <!-- Track Item -->
+        <div class="glass flex items-center p-3 rounded-[20px] gap-4 group">
+          <div class="relative w-14 h-14 rounded-xl overflow-hidden flex-none">
+            <img class="w-full h-full object-cover"
+              data-alt="Cyberpunk style album cover featuring a neon cityscape reflected in a rain-slicked street, deep violet and cyan color palette, cinematic lighting, 8k resolution, futuristic music vibe."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmQL_pW-OL7T1ka6oasy3Rm1TbeEwSzSEpfTCuH3BfreFZoa3bNfvwBJ8SbN8u3YiUDtJ_yUjaYshyBVr8o42VaNBxGPlQly8WUmmTHNnoQP42_LO5JKHmfmQ1VIly33y2jHPjV-2-fYJ4HOQWEoBi3jCoqQzNpiB-IHINuZ964CSet2jMWs6mnFKUHoL4S0oW5K8GDMau7vREOkfYnuOKCaVNMPUE69GtTFKfsAyVixWnWh0km8yiYGCkq5K3zjQkLtZFgArCjVc" />
+            <div
+              class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-active:opacity-100 transition-opacity">
+              <span class="material-symbols-outlined text-white">play_arrow</span>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <h4 class="font-title-lg text-on-surface truncate">Neon Dreams</h4>
+            <p class="font-body-sm text-on-surface-variant">Lumina Synth</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-end h-4 gap-[2px]">
+              <div class="visualizer-bar" style="animation-delay: 0.1s"></div>
+              <div class="visualizer-bar" style="animation-delay: 0.3s"></div>
+              <div class="visualizer-bar" style="animation-delay: 0.2s"></div>
+              <div class="visualizer-bar" style="animation-delay: 0.4s"></div>
+            </div>
+            <button class="material-symbols-outlined text-tertiary">favorite</button>
+          </div>
+        </div>
+        <div class="glass flex items-center p-3 rounded-[20px] gap-4 group">
+          <div class="relative w-14 h-14 rounded-xl overflow-hidden flex-none">
+            <img class="w-full h-full object-cover"
+              data-alt="Abstract musical art with flowing liquid metallic shapes in rose gold and cyan, futuristic aesthetic, high contrast, studio lighting, detailed textures for a music app."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAy7TVOvK66cHJoDo21y_ylvLmGCtt2Cy-s4EeyUMAgL4DcyycJnybOGEaCi7iemO1UDB_pWSUcQGgbv5Oaph2_aBq_m0FsdktRaqB2fbFb3der8PClb-J5jX7vSDguMXPrUH6m9vvPmpzP1c0wR0cWhbCT19zc3fI5MqAqtVaSLW2gt33J9DUJ6TJ6cOOGkMG_DymZf2bOCcOZ0US9AgKHvu-AQ61akt317Wu6aCdX6Nry-KkjlzdVrTPlBOvpPGE-_gJI9RQYwnA" />
+          </div>
+          <div class="flex-grow">
+            <h4 class="font-title-lg text-on-surface truncate">Midnight Pulse</h4>
+            <p class="font-body-sm text-on-surface-variant">Pulse Master</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="material-symbols-outlined text-on-surface-variant">favorite</button>
+            <button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+          </div>
+        </div>
+        <div class="glass flex items-center p-3 rounded-[20px] gap-4 group">
+          <div class="relative w-14 h-14 rounded-xl overflow-hidden flex-none">
+            <img class="w-full h-full object-cover"
+              data-alt="Vibrant artistic portrait of a musician surrounded by cosmic dust and glowing geometric patterns, rich purple and blue hues, modern digital illustration style."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1x2_Ff8oyinVF0NyfoRJrVSKI6-oFCn6gyMQOgHh9Nkj0PAC9oUBmHZiDFJSwUNgGpXgxZjWUxVlDlNiHlEovI4gqrZalM2vs7Ixw94QOEJ6Q9VFeiOcYjYN9HEPXIWTMiO0TVL0x9DyLbht_cWuvyooKMxXmeQwZmqFfeYa0VemdWlAg-srqqJeh5hdVGBO6d1nwLyBUfyihaTw1GDDqETQhgpjgB7aE0EPmZkPoNsXGeADxXw6p0VlARsDgAGzxeWVfV2I9IDQ" />
+          </div>
+          <div class="flex-grow">
+            <h4 class="font-title-lg text-on-surface truncate">Ethereal Echo</h4>
+            <p class="font-body-sm text-on-surface-variant">Cosmic Void</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="material-symbols-outlined text-on-surface-variant">favorite</button>
+            <button class="material-symbols-outlined text-on-surface-variant">more_vert</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Moods -->
+    <section class="mt-stack-lg">
+      <h3 class="font-headline-md text-headline-md mb-4">Select Your Mood</h3>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="relative h-28 rounded-[20px] overflow-hidden group">
+          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+            data-alt="Close up of a laughing person in warm sun-drenched lighting, soft focus background, feeling of pure happiness and summer joy, rich golden tones."
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChWylLqJF7Q42eUAEcex_bYJOOzWfAKauRlPCa0Plht6lyeydWkqQ3HjHNLpsSZ6yaQT-zpQyUuDlDf5qPOVktYV_nu-POHIU1gmQdan77Tbjukz__MxVQQ9CZIs8y3-pCuBzEgtcKQP8aUF8qVLrCyJrdTX5KAO09ta-bJhUGYxU622NF-BWig7J0ci2RUBFjco2IM6OHiGxMJ3muflHLIybAHuHDz6PgsGF5nRC9X8ANt9YcAfFmd_j00LKESDZylCk7T-_HK_o')">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-container/90 to-transparent"></div>
+          <div class="absolute bottom-3 left-3">
+            <span class="font-title-lg text-white">Happy</span>
+          </div>
+        </div>
+        <div class="relative h-28 rounded-[20px] overflow-hidden group">
+          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+            data-alt="Cinematic shot of misty mountains at twilight, deep blue and teal colors, peaceful and meditative atmosphere, high fidelity photography."
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC3WjqMu8SNDbOisa1YMNWk47FyLJhqO3UvrwOlkcM0y6fti4J0A0PJohiQuUl0jKRX_VBHJfmh_B7OH-58Ee12xLEAdngSCF3dRwSiGgvNKuBeLMPpuF9HUso4eYx0N7ikzYUroBZFogC4-h2yizzXIkpe5GRgaHTOx2Zn2H5tn9Q3ICE5MNeyKTWl8JYmUvobK4SwRQgub0TNdXEtTxKVzMSCj_cQgzKUAkNtYLuQIJ4HUS1dBidgTacsKS_MtLUJ1xy61m2SB-E')">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-container/90 to-transparent"></div>
+          <div class="absolute bottom-3 left-3">
+            <span class="font-title-lg text-white">Chill</span>
+          </div>
+        </div>
+        <div class="relative h-28 rounded-[20px] overflow-hidden group">
+          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+            data-alt="Dynamic shot of a runner at night in a neon-lit city, motion blur, intense energy, vibrant magenta and electric blue light, powerful mood."
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWaBfeV0UwYG5DK5CSPVy9gpzOm9ushcL9v81jq9FUQ108YsVBuQs7ivAfIzPkgFm-hwQcoTJvRu4Pt0viOizptLzhnNXd8EPSJici_PfypLpu_j6zNoUJoIz5KXozs7K_TiWY-0LbnJM59QNiq4VQx9u0gaKZ7LbKw1ZZjRanP4Lu7CISV_V_tUZSlx9hGRaBeGIpDQnlC69U8ryccjFL_uPBcewa8BBclyTAGvook0COaQOfOyCP7uYYHcMgeVZviXb57-gvH3c')">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-container/90 to-transparent"></div>
+          <div class="absolute bottom-3 left-3">
+            <span class="font-title-lg text-white">Energy</span>
+          </div>
+        </div>
+        <div class="relative h-28 rounded-[20px] overflow-hidden group">
+          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+            data-alt="Soft aesthetic scene of rain on a window pane overlooking city lights at night, melancholic and cozy mood, dark moody lighting."
+            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAuDjw8v2V9cnXbAc8iSTMfh4vnfZ4zyzZ3afO4dNgPD5AEJD2q06O07ST7118UIRx6Zrs6HX5G8Uze0B8UOVo9yp25Ltbre5yVQBQJ4udBSOBNhY9a1oG13976B_69D8PRVmYh5Qy76jJqktgMfTJst2ow6narObLD7OZ8saqXauJNBLj-RjG4yj8XKDhHJZMFJNOaCfE2y64jm2aDtz1WmWTUjLAa_-vz5oRqG-A8LzbN7KZKppuhK6C7nlmlj2fPsVbXz8g4VpI')">
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-container/90 to-transparent"></div>
+          <div class="absolute bottom-3 left-3">
+            <span class="font-title-lg text-white">Moody</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Playlists -->
+    <section class="mt-stack-lg">
+      <h3 class="font-headline-md text-headline-md mb-4">Curated Playlists</h3>
+      <div class="flex gap-4 overflow-x-auto no-scrollbar pb-4">
+        <div class="flex-none w-44 space-y-2">
+          <div class="w-44 h-44 rounded-[20px] overflow-hidden relative glass border-white/20">
+            <img class="w-full h-full object-cover"
+              data-alt="Vibrant playlist cover art with 3D floating crystal shapes and neon vaporwave colors, high fidelity 3D render, luxury aesthetic."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6d0MDtMIsSRc0SXo38B-hPL3ZvB30COQ3Njt7qWeGguEP5Tw-vGQHn3gUQ_uoV4o6yW9AW6RmNVUp1eMuxzRBNv8M0sEUWWMgR4El5cIJp8w0QKGMKTrOIgcWZvp1kiuuuXzbY-NVxSzo4OpTr4M42bLW4r5MnCxXssJwmA-1hx72cv7P5_T9Z_xKAajoa5wvsmJY5NS0ZTdnfDHjKGrVI7qCYPH_XYcY4W5jYt2zqN7MbjHtM9Ph8An3Nu41ioy5J3c7_7uICrU" />
+            <button
+              class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary-container shadow-lg">
+              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+            </button>
+          </div>
+          <div>
+            <h4 class="font-title-lg text-on-surface">Night Drive</h4>
+            <p class="font-body-sm text-on-surface-variant">42 Tracks • Electronic</p>
+          </div>
+        </div>
+        <div class="flex-none w-44 space-y-2">
+          <div class="w-44 h-44 rounded-[20px] overflow-hidden relative glass border-white/20">
+            <img class="w-full h-full object-cover"
+              data-alt="Minimalist botanical art with glowing neon leaf outlines on a dark navy background, serene and high-end design."
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5FHVjEsiWutzJo-6XtZHVyDhsz8Bn5vAGw2sMJ8nSEoAHP_fRG-PPOF04aF1NlLpipSNu7ODmESNjA0n8rJjArlAO_9EqwBzRktrIEJZrmQI63xHEtT9mo3XIVfUCPzTi0gRNPKhnQP3EZwqsV1Icku9Msl8lLArlNXex_0Pk-Z7VC9wYHJQdwgczeL0HIIfEgulM9RiZcT_sCdh_SR85VWnwJ13NK1wTSxq1OlDU3auJqpjUb9m9oeCKArDxZ8g1GuQPQeHJV8g" />
+            <button
+              class="absolute bottom-3 right-3 w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-lg">
+              <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+            </button>
+          </div>
+          <div>
+            <h4 class="font-title-lg text-on-surface">Chill Vibes</h4>
+            <p class="font-body-sm text-on-surface-variant">58 Tracks • Lo-Fi</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="mt-stack-lg pt-8 border-t border-white/5 pb-20">
+      <div class="flex flex-col items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary"
+            style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+          <span class="font-title-lg text-title-lg text-on-surface">VibeVault</span>
+        </div>
+        <div class="flex gap-6 text-on-surface-variant font-body-sm">
+          <a class="hover:text-primary transition-colors" href="#">Support</a>
+          <a class="hover:text-primary transition-colors" href="#">Privacy</a>
+          <a class="hover:text-primary transition-colors" href="#">Terms</a>
+          <a class="hover:text-primary transition-colors" href="#">Artists</a>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 glass rounded-full flex items-center justify-center text-on-surface-variant">
+            <span class="material-symbols-outlined">share</span>
+          </div>
+          <div class="w-10 h-10 glass rounded-full flex items-center justify-center text-on-surface-variant">
+            <span class="material-symbols-outlined">star</span>
+          </div>
+        </div>
+        <p class="font-body-sm text-on-surface-variant/60">© 2024 VibeVault Sonic Experiences</p>
+      </div>
+    </footer>
+  </main>
+  <!-- Sticky Music Player -->
+  <div
+    class="fixed bottom-0 w-full z-50 h-24 bg-surface-container/90 dark:bg-surface-container/90 backdrop-blur-2xl border-t border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] flex flex-col px-margin-mobile">
+    <!-- Progress Bar -->
+    <div class="w-full h-1 bg-white/10 relative cursor-pointer mt-1 rounded-full overflow-hidden">
+      <div class="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-secondary to-tertiary glow-purple"></div>
+    </div>
+    <div class="flex items-center justify-between h-full py-2">
+      <div class="flex items-center gap-3 w-1/3">
+        <div class="w-10 h-10 rounded-lg overflow-hidden flex-none border border-white/10">
+          <img class="w-full h-full object-cover" data-alt="Mini album art thumbnail, glowing abstract music concept."
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgL9TD2hZOcLG6E8ky8eLjSi385-JR3_EZ8e_jhdRZSCX2g_JdvpFIIKV5nUJPyouMbdLbZpkJditFrU-nK7CaZJ3oA8am9HeeiKuuZH9bZc8ZBeXGG5VDrMi0gETLgNn9lX3MnzcS77mTbtYPedCftUT36hVwARprc8rK0shvZ3T4AOUBkF_w38XP_Myn0LQ_NfBBUNaUJR_0V8PvtVMCUXB0wE46uCxGxIIKVEJr_OUOQKpwh2aA3mdBWhwnBaJIkxnzxkg6Jj0" />
+        </div>
+        <div class="overflow-hidden">
+          <h5 class="text-sm font-bold text-on-surface truncate">Neon Dreams</h5>
+          <p class="text-xs text-on-surface-variant truncate">Lumina Synth</p>
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-4 w-1/3">
+        <button
+          class="material-symbols-outlined text-on-surface-variant active:scale-90 transition-transform">skip_previous</button>
+        <button
+          class="w-12 h-12 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-lg shadow-secondary/20 active:scale-95 transition-all">
+          <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">pause</span>
+        </button>
+        <button
+          class="material-symbols-outlined text-on-surface-variant active:scale-90 transition-transform">skip_next</button>
+      </div>
+      <div class="flex items-center justify-end gap-3 w-1/3 text-secondary">
+        <button class="material-symbols-outlined active:scale-95 transition-all">volume_up</button>
+        <button class="material-symbols-outlined active:scale-95 transition-all">fullscreen</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Micro-interactions and effects
+    document.addEventListener('DOMContentLoaded', () => {
+      const noteContainer = document.getElementById('note-container');
+      const notes = ['music_note', 'itunes_note', 'music_video'];
+
+      function createNote() {
+        const note = document.createElement('span');
+        note.className = 'material-symbols-outlined music-note text-primary/30';
+        note.innerText = notes[Math.floor(Math.random() * notes.length)];
+        note.style.left = Math.random() * 100 + 'vw';
+        note.style.bottom = '-50px';
+        note.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        note.style.animationDuration = (Math.random() * 3 + 3) + 's';
+
+        noteContainer.appendChild(note);
+
+        setTimeout(() => {
+          note.remove();
+        }, 6000);
+      }
+
+      setInterval(createNote, 1000);
+
+      // Simple Fade In on Scroll Simulation
+      const observerOptions = {
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100');
+            entry.target.classList.remove('opacity-0', 'translate-y-4');
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('section').forEach(section => {
+        section.classList.add('opacity-0', 'translate-y-4', 'transition-all', 'duration-700', 'ease-out');
+        observer.observe(section);
+      });
+    });
+  </script>
+</body>
+
+</html>
